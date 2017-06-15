@@ -67,7 +67,8 @@
   "dependencies": {
     "d3": "^4.9.1",
     "enome": "^1.1.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "reflexbox": "^3.0.0-0"
   },
   "jest": {
     "moduleFileExtensions": [
