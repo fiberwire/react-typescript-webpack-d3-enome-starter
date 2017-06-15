@@ -13,7 +13,10 @@ export interface AppProps {
 export default class App extends React.Component<AppProps, undefined> {
     render() {
         return <Flex className="app">
-            <Demo />
+            <Demo
+                drawingWidth={window.innerWidth * 0.9}
+                drawingHeight={window.innerHeight * 0.5}
+            />
         </Flex>;
     }
 }
