@@ -1,6 +1,9 @@
 import * as React from "react";
+import { Demo } from "./demo/demo";
+import { Flex } from "reflexbox";
 
-require("!style-loader!css-loader!sass-loader!./App.scss");
+
+require("./App.scss");
 
 const reactLogo = require("./react_logo.svg");
 
@@ -9,8 +12,8 @@ export interface AppProps {
 
 export default class App extends React.Component<AppProps, undefined> {
     render() {
-        return <div className="app">
-
-        </div>;
+        return <Flex className="app">
+            <Demo />
+        </Flex>;
     }
 }
