@@ -5,9 +5,12 @@ import { Flex, Box } from "reflexbox";
 import { DemoStats } from "../demo-stats/demo-stats";
 import { DemoControls } from "../demo-controls/demo-controls";
 import { Population } from "../../population";
-import { Point } from "../../point";
 import { BehaviorSubject, IDisposable } from "rx";
 import { Row, Col } from "react-flexbox-grid";
+
+import * as _ from "lodash";
+import { Point } from "../../interfaces/point";
+import { HistoryState } from "../../interfaces/history-state";
 
 interface Props {
     drawingWidth: number;
@@ -17,6 +20,8 @@ interface Props {
 interface State {
     data: Point[];
     evolving: BehaviorSubject<boolean>;
+    history: HistoryState[];
+    generation: number;
 }
 
 export class Demo extends React.Component<Props, State> {
@@ -28,7 +33,9 @@ export class Demo extends React.Component<Props, State> {
         this.pop = new Population(this.props.drawingWidth, this.props.drawingHeight, 50);
         this.state = {
             data: [],
-            evolving: new BehaviorSubject(false)
+            evolving: new BehaviorSubject(false),
+            history: [],
+            generation: 0
         };
 
         this.state.evolving
@@ -47,10 +54,17 @@ export class Demo extends React.Component<Props, State> {
             this.evolution = null;
         }
 
-        this.evolution = this.pop.evolve$()
+        console.log("beginning evolution");
+
+        this.evolution = this.pop.evolve$(1, 500)
             .subscribe(e => {
+                console.log(e.genome.id);
                 this.setState({
-                    data: e.result
+                    data: e.result,
+                    history: _.concat(
+                        this.state.history,
+                        { data: e.result, fitness: e.fitness, generation: this.state.generation }
+                    )
                 });
             });
     }
@@ -76,7 +90,11 @@ export class Demo extends React.Component<Props, State> {
 
             <Row>
                 <Col >
-                    <DemoStats />
+                    <DemoStats
+                        data={this.state.data}
+                        history={this.state.history}
+                        historyLength={10}
+                    />
                 </Col>
                 <Col >
                     <DemoControls
