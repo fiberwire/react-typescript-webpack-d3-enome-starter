@@ -56,7 +56,7 @@ export class Demo extends React.Component<Props, State> {
 
         console.log("beginning evolution");
 
-        this.evolution = this.pop.evolve$(1, 500)
+        this.evolution = this.pop.evolve$(15, 500)
             .subscribe(e => {
                 console.log(e.genome.id);
                 this.setState({
@@ -64,7 +64,8 @@ export class Demo extends React.Component<Props, State> {
                     history: _.concat(
                         this.state.history,
                         { data: e.result, fitness: e.fitness, generation: this.state.generation }
-                    )
+                    ),
+                    generation: this.state.generation + 1
                 });
             });
     }
@@ -94,6 +95,7 @@ export class Demo extends React.Component<Props, State> {
                         data={this.state.data}
                         history={this.state.history}
                         historyLength={10}
+                        generation={this.state.generation}
                     />
                 </Col>
                 <Col >
