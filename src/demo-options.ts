@@ -1,4 +1,4 @@
-import { IGenomeOptions } from "enome/out/src/options/genome-options";
+import { IGenomeOptions } from "enome";
 
 
 export interface DemoOptions extends IGenomeOptions {
