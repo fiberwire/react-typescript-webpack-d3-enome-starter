@@ -17,7 +17,7 @@ export class Population extends NaturalSelection<DemoOptions, NaturalSelectionOp
     constructor(width: number, height: number, circles: number) {
 
         let gOptions: DemoOptions = {
-            genomeLength: 500,
+            genomeLength: 100,
             geneLength: 1,
             loopGenes: false,
             minX: 0,

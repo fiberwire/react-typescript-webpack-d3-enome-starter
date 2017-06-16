@@ -7,6 +7,7 @@ interface Props {
     width: number;
     height: number;
     data: Point[];
+    margin: number;
 }
 
 interface State { }
@@ -17,13 +18,38 @@ export class Drawing extends React.Component<Props, State> {
     }
 
     renderCircles() {
-        return this.props.data.map(data => {
-            return <circle cx={data.x} cy={data.y} key={`[${data.x}, ${data.y}]`}></circle >;
-        });
+        return <g>
+            {this.props.data.map(data => {
+                return <circle
+                    cx={data.x}
+                    cy={data.y}
+                    r={5}
+                    key={`[${data.x}, ${data.y}]`}
+                    fill={"#fff"}
+                ></circle >;
+            })}
+        </g>;
+
+    }
+
+    renderMargins() {
+        return <g>
+            {this.props.data.map(data => {
+                return <circle
+                    cx={data.x}
+                    cy={data.y}
+                    r={this.props.margin}
+                    key={`[${data.x}, ${data.y}]`}
+                    fill={"#fff"}
+                    fillOpacity={0.25}
+                ></circle>;
+            })}
+        </g>;
     }
 
     render() {
         return <svg width={this.props.width} height={this.props.height}>
+            {this.renderMargins()}
             {this.renderCircles()}
         </svg>;
     }
