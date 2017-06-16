@@ -1,7 +1,8 @@
 import * as React from "react";
 
 import "./drawing.scss";
-import { Point } from "../../point";
+import { Point } from "../../interfaces/point";
+
 
 interface Props {
     width: number;
@@ -29,7 +30,6 @@ export class Drawing extends React.Component<Props, State> {
                 ></circle >;
             })}
         </g>;
-
     }
 
     renderMargins() {

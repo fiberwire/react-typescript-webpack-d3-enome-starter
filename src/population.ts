@@ -9,9 +9,10 @@ import {
     NaturalSelection,
     replenish,
 } from "enome";
-import { Point } from "./point";
-import { DemoOptions } from "./demo-options";
 import * as _ from "lodash";
+import { Point } from "./interfaces/point";
+import { DemoOptions } from "./interfaces/demo-options";
+
 
 export class Population extends NaturalSelection<DemoOptions, NaturalSelectionOptions, Point[]> {
     constructor(width: number, height: number, circles: number) {
@@ -77,8 +78,8 @@ export class Population extends NaturalSelection<DemoOptions, NaturalSelectionOp
             let findOverlap = (points: Point[]) => {
                 let overlap = points.map(p1 => {
                     let ol = distances(p1, points)
-                        .filter(d => d < gOptions.margin)
-                        .map(d => gOptions.margin - d);
+                        .filter(d => d < gOptions.margin * 2)
+                        .map(d => gOptions.margin * 2 - d);
                     return _.sum(ol);
                 });
                 return _.sum(overlap);
@@ -88,7 +89,6 @@ export class Population extends NaturalSelection<DemoOptions, NaturalSelectionOp
 
             return { genome: replenish(genome), fitness: findOverlap(points), result: points };
         };
-
 
         super(pOptions,
             gOptions,
