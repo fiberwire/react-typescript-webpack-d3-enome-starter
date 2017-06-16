@@ -9,6 +9,7 @@ interface Props {
     height: number;
     data: Point[];
     margin: number;
+    circleSize: number;
 }
 
 interface State { }
@@ -24,7 +25,7 @@ export class Drawing extends React.Component<Props, State> {
                 return <circle
                     cx={data.x}
                     cy={data.y}
-                    r={5}
+                    r={this.props.circleSize}
                     key={`[${data.x}, ${data.y}]`}
                     fill={"#fff"}
                 ></circle >;

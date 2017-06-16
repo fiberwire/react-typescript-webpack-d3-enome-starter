@@ -6,6 +6,7 @@ import "./demo-controls.scss";
 
 interface Props {
     evolving: BehaviorSubject<boolean>;
+    reset: () => void;
 }
 
 interface State {
@@ -30,6 +31,7 @@ export class DemoControls extends React.Component<Props, State> {
         return <Box>
             <button onClick={this.startEvolution}>Start Evolution</button>
             <button onClick={this.stopEvolution}>Stop Evolution</button>
+            <button onClick={this.props.reset}>Reset</button>
         </Box>;
     }
 }

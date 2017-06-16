@@ -20,6 +20,7 @@ interface Props {
 interface State {
     data: Point[];
     evolving: BehaviorSubject<boolean>;
+    reset: BehaviorSubject<boolean>;
     history: HistoryState[];
     generation: number;
 }
@@ -34,6 +35,7 @@ export class Demo extends React.Component<Props, State> {
         this.state = {
             data: [],
             evolving: new BehaviorSubject(false),
+            reset: new BehaviorSubject(false),
             history: [],
             generation: 0
         };
@@ -46,6 +48,18 @@ export class Demo extends React.Component<Props, State> {
                     this.stopEvolution();
                 }
             });
+    }
+
+    reset = () => {
+        this.stopEvolution();
+
+        this.setState({
+            data: [],
+            history: [],
+            generation: 0
+        });
+
+        this.state.reset.onNext(false);
     }
 
     startEvolution = () => {
@@ -86,6 +100,7 @@ export class Demo extends React.Component<Props, State> {
                     height={this.props.drawingHeight}
                     data={this.state.data}
                     margin={this.pop.genOptions.margin}
+                    circleSize={10}
                 />
             </Row>
 
@@ -101,6 +116,7 @@ export class Demo extends React.Component<Props, State> {
                 <Col >
                     <DemoControls
                         evolving={this.state.evolving}
+                        reset={this.reset}
                     />
                 </Col>
             </Row>
