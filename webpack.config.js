@@ -8,9 +8,6 @@ module.exports = {
         extensions: [".webpack.js", ".web.js", ".ts", ".tsx", ".js", ".jsx"],
     },
     entry: [
-        "react-hot-loader/patch", // activate HMR for React
-        "webpack-dev-server/client?http://localhost:8080",// bundle the client for webpack-dev-server and connect to the provided endpoint
-        "webpack/hot/only-dev-server", // bundle the client for hot reloading, only- means to only hot reload for successful updates
         "./index.tsx" // the entry point of our app
     ],
     output: {
@@ -41,12 +38,12 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: ["style-loader", "css-loader?modules",],
+                use: ["style-loader", "css-loader",],
                 include: /flexboxgrid/
             },
             {
                 test: /\.scss$/,
-                loaders: ["style-loader", "css-loader?modules", "sass-loader"]
+                loaders: ["style-loader", "css-loader", "sass-loader"]
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
@@ -60,7 +57,7 @@ module.exports = {
 
     plugins: [
         new CheckerPlugin(),
-        new StyleLintPlugin(),
+        // new StyleLintPlugin(),
         new webpack.HotModuleReplacementPlugin(), // enable HMR globally
         new webpack.NamedModulesPlugin(), // prints more readable module names in the browser console on HMR updates
 
