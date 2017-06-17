@@ -12,7 +12,7 @@ export interface AppProps {
 
 export default class App extends React.Component<AppProps, undefined> {
     render() {
-        return <Grid className="app" fluid>
+        return <Grid fluid>
             <Demo
                 drawingWidth={window.innerWidth * 0.9}
                 drawingHeight={window.innerHeight * 0.5}
