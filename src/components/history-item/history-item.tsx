@@ -6,6 +6,7 @@ import { HistoryState } from "../../interfaces/history-state";
 
 interface Props {
     state: HistoryState;
+    prev: HistoryState;
 }
 
 interface State {

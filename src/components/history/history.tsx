@@ -21,18 +21,36 @@ export class History extends React.Component<Props, State> {
     }
 
     renderList() {
-        return _.concat(
-            _.takeRight(this.props.history.map(h => <HistoryItem state={h} />),
-                this.props.length).reverse(),
+        let hist = _.takeRight(this.props.history,
+            this.props.length).reverse();
+
+        let prev = hist
+            .map(h => this.props.history.indexOf(h))
+            .map(i => {
+                if (i >= 0)
+                    return this.props.history[i];
+                else
+                    return null;
+            });
+
+
+        let histItems = _.zip(hist, prev)
+            .map(states => {
+                return <HistoryItem state={states[0]} prev={states[1]} />;
+            });
+
+        let filled = _.concat(
+            histItems,
             this.props.history.length < this.props.length ?
                 _.range(this.props.length - this.props.history.length)
-                    .map(i => <HistoryItem state={null} />)
+                    .map(i => <HistoryItem state={null} prev={null} />)
                 :
                 []
-        )
-            .map(h => {
-                return <Col xs>{h}</Col>;
-            });
+        );
+
+        return filled.map(h => {
+            return <Col xs={2}>{h}</Col>;
+        });
     }
 
     render() {
