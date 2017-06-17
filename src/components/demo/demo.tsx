@@ -58,7 +58,8 @@ export class Demo extends React.Component<Props, State> {
         this.setState({
             data: [],
             history: [],
-            generation: 0
+            generation: 0,
+            fitness: 0
         });
 
         this.state.reset.onNext(false);

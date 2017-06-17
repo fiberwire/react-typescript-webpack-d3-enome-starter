@@ -1,0 +1,28 @@
+@import "../../colors";
+
+.history-item {
+    margin: 3px;
+    padding: 10px;
+    width: 8em;
+    height: 4em;
+    border-radius: 4px;
+    text-align: center;
+    align-content: center;
+}
+
+.history-generation {
+    border-top-left-radius: .5em;
+    border-top-right-radius: .5em;
+    font-size: 1.2em;
+    background-color: $steel;
+    padding: .5em;
+}
+
+.history-fitness {
+    border-bottom-left-radius: .5em;
+    border-bottom-right-radius: .5em;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: $boy;
+    padding: .5em;
+}

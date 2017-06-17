@@ -5,6 +5,8 @@ import { Col, Row } from "react-flexbox-grid";
 import "./demo-stats.scss";
 import { HistoryState } from "../../interfaces/history-state";
 import { Point } from "../../interfaces/point";
+import { HistoryItem } from '../history-item/history-item';
+import { History } from '../history/history';
 
 interface Props {
     fitness: number;
@@ -21,36 +23,6 @@ interface State {
 export class DemoStats extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
-    }
-
-    renderHistory = () => {
-        let history = () => {
-            if (this.props.history.length > this.props.historyLength) {
-                return _.takeRight(
-                    this.props.history.map(h => {
-                        return <li className="history-item">
-                            {`Gen ${h.generation}: ${_.round(h.fitness, 4)}`}
-                        </li>;
-                    }),
-                    this.props.historyLength)
-                    .reverse();
-            } else {
-                return _.concat(
-                    _.takeRight(this.props.history.map(h => `Gen ${h.generation}: ${_.round(h.fitness, 4)}`), this.props.historyLength).reverse(),
-                    _.range(this.props.historyLength - this.props.history.length).map(i => "...")
-                )
-                    .map(h => {
-                        return <li className="history-item">{h}</li>;
-                    });
-
-            }
-        };
-
-        return <ul>
-            {
-                history()
-            }
-        </ul>;
     }
 
     render() {
@@ -88,9 +60,10 @@ export class DemoStats extends React.Component<Props, State> {
                     </div>
                 </Col>
                 <Col xs>
-                    <div className="history">
-                        {this.renderHistory()}
-                    </div>
+                    <History
+                        history={this.props.history}
+                        length={this.props.historyLength}
+                    />
                 </Col>
             </Row>
 
