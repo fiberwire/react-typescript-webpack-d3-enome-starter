@@ -29,9 +29,9 @@ export class DemoControls extends React.Component<Props, State> {
 
     render() {
         return <Box>
-            <button onClick={this.startEvolution}>Start Evolution</button>
-            <button onClick={this.stopEvolution}>Stop Evolution</button>
-            <button onClick={this.props.reset}>Reset</button>
+            <button className="start-btn btn" onClick={this.startEvolution}>Start Evolution</button>
+            <button className="stop-btn btn" onClick={this.stopEvolution}>Stop Evolution</button>
+            <button className="reset-btn btn" onClick={this.props.reset}>Reset</button>
         </Box>;
     }
 }
