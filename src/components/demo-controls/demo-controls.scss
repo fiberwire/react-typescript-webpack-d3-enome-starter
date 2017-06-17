@@ -1,9 +1,4 @@
-$rusty: #d7263d;
-$mass: #02182b;
-$vivid: #0197f6;
-$steel: #448fa3;
-$boy: #68c5db;
-$gray: #111;
+@import '../../colors';
 
 
 .demo-controls {
@@ -11,18 +6,28 @@ $gray: #111;
 }
 
 button {
-  border-radius: 5px;
+  display: inline-block;
+  border-radius: .3em;
   border: none;
   font-weight: bold;
   color: white;
   background-color: $gray;
-  padding: 5px;
+  padding: .75em;
+  margin: .75em;
+  width: 10em;
 }
 
 .start-btn {
-  background-color: green;
+  background-color: $boy;
 }
 
 .stop-btn {
-  background-color: red;
+  background-color: $rusty;
+}
+
+.reset-btn {
+  background-color: $lightGray;
+  :hover {
+    background-color: $gray;
+  }
 }
