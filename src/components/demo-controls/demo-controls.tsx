@@ -3,6 +3,7 @@ import { BehaviorSubject } from "rx";
 import { Box } from "reflexbox";
 
 import "./demo-controls.scss";
+import { Col } from 'react-flexbox-grid';
 
 interface Props {
     evolving: BehaviorSubject<boolean>;
@@ -28,10 +29,19 @@ export class DemoControls extends React.Component<Props, State> {
     }
 
     render() {
-        return <Box>
-            <button className="start-btn btn" onClick={this.startEvolution}>Start Evolution</button>
-            <button className="stop-btn btn" onClick={this.stopEvolution}>Stop Evolution</button>
-            <button className="reset-btn btn" onClick={this.props.reset}>Reset</button>
-        </Box>;
+        return <div>
+            <Col xs={3}>
+                <button className="start-btn btn" onClick={this.startEvolution}>Start Evolution</button>
+            </Col>
+
+            <Col xs={3}>
+                <button className="stop-btn btn" onClick={this.stopEvolution}>Stop Evolution</button>
+            </Col>
+
+            <Col xs={3}>
+                <button className="reset-btn btn" onClick={this.props.reset}>Reset</button>
+            </Col>
+
+        </div>;
     }
 }
