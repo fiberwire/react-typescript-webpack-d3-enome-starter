@@ -1,12 +1,13 @@
 import * as React from "react";
-import { Col, Row } from "react-flexbox-grid";
 import * as _ from "lodash";
+import { Col, Row } from "react-flexbox-grid";
 
 import "./demo-stats.scss";
 import { HistoryState } from "../../interfaces/history-state";
 import { Point } from "../../interfaces/point";
 
 interface Props {
+    fitness: number;
     data: Point[];
     history: HistoryState[];
     historyLength: number;
@@ -27,19 +28,19 @@ export class DemoStats extends React.Component<Props, State> {
             if (this.props.history.length > this.props.historyLength) {
                 return _.takeRight(
                     this.props.history.map(h => {
-                        return <li>
-                            {`Gen ${h.generation}: ${h.fitness}`}
+                        return <li className="history-item">
+                            {`Gen ${h.generation}: ${_.round(h.fitness, 4)}`}
                         </li>;
                     }),
                     this.props.historyLength)
                     .reverse();
             } else {
                 return _.concat(
-                    _.takeRight(this.props.history.map(h => `Gen ${h.generation}: ${h.fitness}`), this.props.historyLength).reverse(),
-                    _.range(this.props.historyLength - this.props.history.length).map(i => "-")
+                    _.takeRight(this.props.history.map(h => `Gen ${h.generation}: ${_.round(h.fitness, 4)}`), this.props.historyLength).reverse(),
+                    _.range(this.props.historyLength - this.props.history.length).map(i => "...")
                 )
                     .map(h => {
-                        return <li>{h}</li>;
+                        return <li className="history-item">{h}</li>;
                     });
 
             }
@@ -53,25 +54,43 @@ export class DemoStats extends React.Component<Props, State> {
     }
 
     render() {
-        return <div>
-
-            <Row className="generation-row">
-                <Col>
-                    <div className="generation-label">
-                        Generation:
+        return <div className="demo-stats">
+            <Row>
+                <Col xs={3}>
+                    <div className="generation-label label">
+                        Generation
                     </div>
                 </Col>
-                <Col>
+                <Col xs>
                     <div className="generation">
-                        {` ${this.props.generation}`}
+                        {this.props.generation}
                     </div>
                 </Col>
             </Row>
 
-            <Row className="history-row">
-                <Col className="history-label">History:</Col>
-                <Col className="history">
-                    {this.renderHistory()}
+            <Row>
+                <Col xs={3}>
+                    <div className="fitness-label label">
+                        Fitness:
+                    </div>
+                </Col>
+                <Col xs>
+                    <div className="fitness">
+                        {this.props.fitness}
+                    </div>
+                </Col>
+            </Row>
+
+            <Row >
+                <Col xs={3}>
+                    <div className="history-label label">
+                        History:
+                    </div>
+                </Col>
+                <Col xs>
+                    <div className="history">
+                        {this.renderHistory()}
+                    </div>
                 </Col>
             </Row>
 
