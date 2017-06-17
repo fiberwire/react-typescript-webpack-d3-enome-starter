@@ -1,4 +1,28 @@
+$rusty: #d7263d;
+$mass: #02182b;
+$vivid: #0197f6;
+$steel: #448fa3;
+$boy: #68c5db;
+$gray: #111;
+
 
 .demo-controls {
   padding: 30px;
+}
+
+button {
+  border-radius: 5px;
+  border: none;
+  font-weight: bold;
+  color: white;
+  background-color: $gray;
+  padding: 5px;
+}
+
+.start-btn {
+  background-color: green;
+}
+
+.stop-btn {
+  background-color: red;
 }
