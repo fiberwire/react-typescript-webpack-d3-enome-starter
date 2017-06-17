@@ -19,6 +19,7 @@ interface Props {
 
 interface State {
     data: Point[];
+    fitness: number;
     evolving: BehaviorSubject<boolean>;
     reset: BehaviorSubject<boolean>;
     history: HistoryState[];
@@ -34,6 +35,7 @@ export class Demo extends React.Component<Props, State> {
         this.pop = new Population(this.props.drawingWidth, this.props.drawingHeight, 50);
         this.state = {
             data: [],
+            fitness: 0,
             evolving: new BehaviorSubject(false),
             reset: new BehaviorSubject(false),
             history: [],
@@ -75,6 +77,7 @@ export class Demo extends React.Component<Props, State> {
                 console.log(e.genome.id);
                 this.setState({
                     data: e.result,
+                    fitness: e.fitness,
                     history: _.concat(
                         this.state.history,
                         { data: e.result, fitness: e.fitness, generation: this.state.generation }
@@ -93,8 +96,8 @@ export class Demo extends React.Component<Props, State> {
 
 
     render() {
-        return <Row className="demo">
-            <Row >
+        return <div>
+            <Row>
                 <Drawing
                     width={this.props.drawingWidth}
                     height={this.props.drawingHeight}
@@ -105,21 +108,22 @@ export class Demo extends React.Component<Props, State> {
             </Row>
 
             <Row>
-                <Col >
+                <Col xs>
                     <DemoStats
                         data={this.state.data}
                         history={this.state.history}
                         historyLength={10}
                         generation={this.state.generation}
+                        fitness={this.state.fitness}
                     />
                 </Col>
-                <Col >
+                <Col xs>
                     <DemoControls
                         evolving={this.state.evolving}
                         reset={this.reset}
                     />
                 </Col>
             </Row>
-        </Row>;
+        </div>;
     }
 }
