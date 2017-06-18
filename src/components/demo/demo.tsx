@@ -81,7 +81,7 @@ export class Demo extends React.Component<Props, State> {
                     fitness: e.fitness,
                     history: _.concat(
                         this.state.history,
-                        { data: e.result, fitness: e.fitness, generation: this.state.generation }
+                        { data: e.result, fitness: e.fitness, generation: this.state.generation, genomes: this.pop.genomes }
                     ),
                     generation: this.state.generation + 1
                 });
