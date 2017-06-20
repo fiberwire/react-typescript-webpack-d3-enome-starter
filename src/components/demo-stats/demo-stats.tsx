@@ -5,8 +5,10 @@ import { Col, Row } from "react-flexbox-grid";
 import "./demo-stats.scss";
 import { HistoryState } from "../../interfaces/history-state";
 import { Point } from "../../interfaces/point";
-import { HistoryItem } from '../history-item/history-item';
-import { History } from '../history/history';
+import { HistoryItem } from "../history-item/history-item";
+import { History } from "../history/history";
+import { IEvaluation, Genome } from "enome";
+import { DemoOptions } from "../../interfaces/demo-options";
 
 interface Props {
     fitness: number;
@@ -14,6 +16,7 @@ interface Props {
     history: HistoryState[];
     historyLength: number;
     generation: number;
+    fitnessFunc: (genome: Genome<DemoOptions>) => IEvaluation<DemoOptions, Point[]>;
 }
 
 interface State {
@@ -63,6 +66,7 @@ export class DemoStats extends React.Component<Props, State> {
                     <History
                         history={this.props.history}
                         length={this.props.historyLength}
+                        fitness={this.props.fitnessFunc}
                     />
                 </Col>
             </Row>

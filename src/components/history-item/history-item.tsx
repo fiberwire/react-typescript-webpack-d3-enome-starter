@@ -3,9 +3,13 @@ import * as _ from "lodash";
 
 import "./history-item.scss";
 import { HistoryState } from "../../interfaces/history-state";
+import { IEvaluation, Genome } from "enome";
+import { DemoOptions } from "../../interfaces/demo-options";
+import { Point } from "../../interfaces/point";
 
 interface Props {
     history: HistoryState[];
+    fitness: (genome: Genome<DemoOptions>) => IEvaluation<DemoOptions, Point[]>;
     index: number;
 }
 
@@ -57,6 +61,20 @@ export class HistoryItem extends React.Component<Props, State> {
         }
     }
 
+    get best(): number {
+        return _.max(
+            this.currState.genomes
+                .map(g => this.props.fitness(g).fitness)
+        );
+    }
+
+    get worst(): number {
+        return _.min(
+            this.currState.genomes
+                .map(g => this.props.fitness(g).fitness)
+        );
+    }
+
     render() {
 
         if (this.currState != null) {
@@ -67,6 +85,12 @@ export class HistoryItem extends React.Component<Props, State> {
                 <div className={`history-fitness ${this.color}`} >
                     {_.round(this.currState.fitness, 2)} ({this.difference})
                 </div>
+                {/*<div className="history-best">
+                    {`Best: ${this.best}`}
+                </div>
+                <div className="history-worst">
+                    {`Worst: ${this.worst}`}
+                </div>*/}
             </div>;
         } else {
             return <div className="history-item">...</div>;

@@ -11,6 +11,7 @@ import { Row, Col } from "react-flexbox-grid";
 import * as _ from "lodash";
 import { Point } from "../../interfaces/point";
 import { HistoryState } from "../../interfaces/history-state";
+import { replenishMany } from "enome/out/src";
 
 interface Props {
     drawingWidth: number;
@@ -81,7 +82,7 @@ export class Demo extends React.Component<Props, State> {
                     fitness: e.fitness,
                     history: _.concat(
                         this.state.history,
-                        { data: e.result, fitness: e.fitness, generation: this.state.generation, genomes: this.pop.genomes }
+                        { data: e.result, fitness: e.fitness, generation: this.state.generation }
                     ),
                     generation: this.state.generation + 1
                 });
@@ -116,6 +117,7 @@ export class Demo extends React.Component<Props, State> {
                         historyLength={10}
                         generation={this.state.generation}
                         fitness={this.state.fitness}
+                        fitnessFunc={this.pop.fitness}
                     />
                 </Col>
                 <Col xs>

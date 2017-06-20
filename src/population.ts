@@ -30,7 +30,7 @@ export class Population extends NaturalSelection<DemoOptions, NaturalSelectionOp
 
         let pOptions: NaturalSelectionOptions = {
             populationSize: 10,
-            fillType: FillType.none,
+            fillType: FillType.worst,
             fillPercent: 0.15,
             reproduceOptions: {
                 type: ReproduceType.safeSampled,
@@ -39,7 +39,7 @@ export class Population extends NaturalSelection<DemoOptions, NaturalSelectionOp
             mutateOptions: {
                 mutateChance: 0.15,
                 mutateOp: MutateOp.sub,
-                type: MutateType.normal,
+                type: MutateType.safeSampled,
                 sampleSize: 5
             },
             objective: FitnessObjective.minimize
