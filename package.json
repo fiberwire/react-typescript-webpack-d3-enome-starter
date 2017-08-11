@@ -64,12 +64,12 @@
   },
   "dependencies": {
     "d3": "^4.9.1",
-    "enome": "^2.0.0",
+    "enome": "^2.1.1",
     "lodash": "^4.17.4",
-    "react-flexbox-grid": "^1.1.3",
     "react": "^15.5.4",
     "react-addons-test-utils": "^15.5.1",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-flexbox-grid": "^1.1.3"
   },
   "jest": {
     "moduleFileExtensions": [
