@@ -1,9 +1,8 @@
 import * as React from "react";
-import { BehaviorSubject } from "rx";
-import { Box } from "reflexbox";
+import { BehaviorSubject } from "rxjs";
 
 import "./demo-controls.scss";
-import { Col } from 'react-flexbox-grid';
+import { Col } from "react-flexbox-grid";
 
 interface Props {
     evolving: BehaviorSubject<boolean>;
@@ -21,11 +20,11 @@ export class DemoControls extends React.Component<Props, State> {
 
 
     startEvolution = () => {
-        this.props.evolving.onNext(true);
+        this.props.evolving.next(true);
     }
 
     stopEvolution = () => {
-        this.props.evolving.onNext(false);
+        this.props.evolving.next(false);
     }
 
     render() {
