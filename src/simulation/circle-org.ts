@@ -40,12 +40,13 @@ export class CircleOrg extends Organism<
             const others = _.without(points, point);
 
             return others.map((other) => {
-                return this.distance(other, point);
+                const dist = this.distance(other, point);
+                return dist;
             });
         });
 
         // average distance between points
-        const fitness = _.mean(distances);
+        const fitness = Math.abs(this.options.radius * 2 - _.mean(distances.map(_.mean)));
 
         return {
             genotype: this.genotype,
