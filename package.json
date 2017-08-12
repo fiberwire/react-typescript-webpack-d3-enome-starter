@@ -12,11 +12,11 @@
     "starter",
     "boilerplate"
   ],
-  "author": "Viktor Persson",
+  "author": "Andrew Ramos",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vikpe/react-webpack-typescript-starter.git"
+    "url": "git+https://github.com/fiberwire/react-webpack-typescript-enome-d3-starter.git"
   },
   "bugs": {
     "url": "https://github.com/vikpe/react-webpack-typescript-starter/issues"
@@ -26,7 +26,7 @@
     "lint": "npm run lint:ts && npm run lint:sass",
     "lint:ts": "tslint './src/**/*.ts*' --format stylish --force",
     "lint:sass": "stylelint ./src/**/*.scss",
-    "reinstall": "rimraf node_modules && yarn",
+    "reinstall": "rimraf ./node_modules && yarn",
     "start": "webpack-dev-server",
     "test": "jest --watch --coverage",
     "tsc": "tsc --watch"
@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "d3": "^4.9.1",
-    "enome": "^2.1.1",
+    "enome": "^2.2.0",
     "lodash": "^4.17.4",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
