@@ -54,7 +54,7 @@ export class Demo extends React.Component<Props, State> {
         const genOptions: ICircleGenomeOptions = {
             genomeLength: 100,
             geneLength: 1,
-            circles: 50,
+            circles: 100,
             minX: 0,
             maxX: this.props.drawingWidth,
             minY: 0,
@@ -65,12 +65,12 @@ export class Demo extends React.Component<Props, State> {
         };
 
         const popOptions: ICirclePopOptions = {
-            generations: 1000,
+            generations: 100000,
             mutate: {
                 mutateChance: 0.05,
                 mutateOp: MutateOp.sub,
             },
-            objective: FitnessObjective.maximize,
+            objective: FitnessObjective.minimize,
             progress: true,
             size: 10,
             topPercent: .25,
