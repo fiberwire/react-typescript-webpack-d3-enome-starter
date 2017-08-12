@@ -8,5 +8,4 @@ export interface ICircleGenomeOptions extends IGenomeOptions {
     minY: number;
     maxY: number;
     radius: number;
-    margin: number;
 }

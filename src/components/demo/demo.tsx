@@ -52,43 +52,42 @@ export class Demo extends React.Component<Props, State> {
         };
 
         const genOptions: ICircleGenomeOptions = {
-            genomeLength: 100,
-            geneLength: 1,
-            circles: 100,
+            genomeLength: 200,
+            geneLength: 10,
+            circles: 50,
             minX: 0,
             maxX: this.props.drawingWidth,
             minY: 0,
             maxY: this.props.drawingHeight,
             radius: 5,
-            margin: 35,
             refill: GenomeRefill.extend,
         };
 
         const popOptions: ICirclePopOptions = {
-            generations: 100000,
+            generations: 1000,
             mutate: {
-                mutateChance: 0.05,
-                mutateOp: MutateOp.sub,
+                mutateChance: 0.25,
+                mutateOp: MutateOp.avg,
             },
             objective: FitnessObjective.minimize,
             progress: true,
-            size: 10,
-            topPercent: .25,
+            size: 50,
+            topPercent: .75,
             weights: {
-                keep: 5,
-                mutate: 15,
-                randomize: 10,
-                reproduce: 70,
+                keep: 0,
+                mutate: 50,
+                randomize: 100,
+                reproduce: 50,
             },
         };
 
         const orgOptions: ICircleOrgOptions = {
             interactions: 1,
-            radius: 35,
+            margin: 25,
         };
 
         const envOptions: ICircleEnvOptions = {
-            interactionRate: 1000,
+            interactionRate: 1,
             updateType: UpdateType.random,
         };
 
@@ -169,7 +168,7 @@ export class Demo extends React.Component<Props, State> {
                     width={this.props.drawingWidth}
                     height={this.props.drawingHeight}
                     data={this.state.data}
-                    margin={this.sim.population.genOptions.margin}
+                    margin={this.sim.population.orgOptions.margin}
                     circleSize={this.sim.population.genOptions.radius}
                 />
             </Row>
