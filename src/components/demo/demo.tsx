@@ -100,7 +100,6 @@ export class Demo extends React.Component<Props, State> {
         );
 
         let env = new CircleEnv(envOptions);
-
         this.sim = new CircleSim(pop, env);
 
         this.state.evolving
@@ -142,7 +141,13 @@ export class Demo extends React.Component<Props, State> {
                     fitness: e.fitness,
                     history: _.concat(
                         this.state.history,
-                        { data: e.phenotype, fitness: e.fitness, generation: this.state.generation, genomes:  }
+                        {
+                            data: e.phenotype,
+                            fitness: e.fitness,
+                            generation: this.state.generation,
+                            genomes: this.sim.organisms.value
+                                .map((o) => o.genotype),
+                        }
                     ),
                     generation: this.state.generation + 1
                 });
@@ -164,8 +169,8 @@ export class Demo extends React.Component<Props, State> {
                     width={this.props.drawingWidth}
                     height={this.props.drawingHeight}
                     data={this.state.data}
-                    margin={this.pop.genOptions.margin}
-                    circleSize={10}
+                    margin={this.sim.population.genOptions.margin}
+                    circleSize={this.sim.population.genOptions.radius}
                 />
             </Row>
 
