@@ -34,19 +34,24 @@ export class CircleOrg extends Organism<
 
     evaluate(data: ICircleData[], genotype: Genome<ICircleGenomeOptions>, phenotype: Point[]): IEvaluation<ICircleGenomeOptions, ICircleData, Point[]> {
         const points = data[0].points;
+        const margin = this.options.margin * 2;
 
         // how far each point is from each other point
-        const distances: Array<Array<number>> = points.map(point => {
+        const distances: number[] = _.concat([], ...points.map(point => {
             const others = _.without(points, point);
 
             return others.map((other) => {
                 const dist = this.distance(other, point);
                 return dist;
             });
-        });
+        }));
 
-        // average distance between points
-        const fitness = Math.abs(this.options.radius * 2 - _.mean(distances.map(_.mean)));
+        const overlapping = distances.filter((d) => d < margin);
+
+        const overlap = _.sum(overlapping);
+
+        // sum of distance between points that are less than margi
+        const fitness = overlap;
 
         return {
             genotype: this.genotype,
@@ -60,12 +65,12 @@ export class CircleOrg extends Organism<
         const options = this.genotype.options;
 
         return _.range(options.circles)
-        .map((i) => {
-            return {
-                x: this.genotype.g.float(options.minX, options.maxX),
-                y: this.genotype.g.float(options.minY, options.maxY),
-            };
-        });
+            .map((i) => {
+                return {
+                    x: this.genotype.g.float(options.minX, options.maxX),
+                    y: this.genotype.g.float(options.minY, options.maxY),
+                };
+            });
     }
 
     private distance(a: Point, b: Point): number {
