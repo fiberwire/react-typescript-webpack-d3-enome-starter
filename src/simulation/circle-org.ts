@@ -1,30 +1,76 @@
+import { ICircleOrgOptions } from "./options/circle-org-options";
+import { ICirclePopOptions } from "./options/circle-pop-options";
+import { ICircleGenomeOptions } from "./options/circle-genome-options";
 import { ICircleState } from "./circle-state";
 import { Point } from "../interfaces/point";
 import { ICircleData } from "./circle-data";
-import { ICircleOrgOptions } from "./circle-org-options";
-import { ICirclePopOptions } from "./circle-pop-options";
-import { ICircleGenomeOptions } from "./circle-genome-options";
-import { Organism, IStateUpdate, Genome, IEvaluation } from "enome";
+import { Organism, IStateUpdate, Genome, IEvaluation, IAgentUpdate } from "enome";
 
-    export class CircleOrg extends Organism<
-        ICircleGenomeOptions,
-        ICirclePopOptions,
-        ICircleOrgOptions,
-        ICircleData, Point[], ICircleState, ICircleState> {
+import * as _ from "lodash";
+
+export class CircleOrg extends Organism<
+    ICircleGenomeOptions,
+    ICirclePopOptions,
+    ICircleOrgOptions,
+    ICircleData, Point[], ICircleState, ICircleState> {
+
     perceive(state: IStateUpdate<ICircleState>): IStateUpdate<ICircleState> {
-        throw new Error("Method not implemented.");
+        return state;
     }
-    interact(state: IStateUpdate<ICircleState>, phenotype: Point[]): IStateUpdate<ICircleState> {
-        throw new Error("Method not implemented.");
+
+    interact(state: IStateUpdate<ICircleState>, phenotype: Point[]): IAgentUpdate<ICircleState> {
+        return {
+            agentID: this.genotype.id,
+            interaction: state.interaction++,
+            state: {
+                points: this.phenotype,
+            }
+        };
     }
+
     observe(interaction: IStateUpdate<ICircleState>): ICircleData {
-        throw new Error("Method not implemented.");
+        return interaction.state;
     }
+
     evaluate(data: ICircleData[], genotype: Genome<ICircleGenomeOptions>, phenotype: Point[]): IEvaluation<ICircleGenomeOptions, ICircleData, Point[]> {
-        throw new Error("Method not implemented.");
+        const points = data[0].points;
+
+        // how far each point is from each other point
+        const distances: Array<Array<number>> = points.map(point => {
+            const others = _.without(points, point);
+
+            return others.map((other) => {
+                return this.distance(other, point);
+            });
+        });
+
+        // average distance between points
+        const fitness = _.mean(distances);
+
+        return {
+            genotype: this.genotype,
+            phenotype: this.phenotype,
+            data,
+            fitness
+        };
     }
+
     createPhenotype(genome: Genome<ICircleGenomeOptions>): Point[] {
-        throw new Error("Method not implemented.");
+        const options = this.genotype.options;
+
+        return _.range(options.circles)
+        .map((i) => {
+            return {
+                x: this.genotype.g.float(options.minX, options.maxX),
+                y: this.genotype.g.float(options.minY, options.maxY),
+            };
+        });
+    }
+
+    private distance(a: Point, b: Point): number {
+        return Math.sqrt(
+            Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2)
+        );
     }
 
 }
