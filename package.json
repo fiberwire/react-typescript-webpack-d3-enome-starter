@@ -26,6 +26,7 @@
     "lint": "npm run lint:ts && npm run lint:sass",
     "lint:ts": "tslint './src/**/*.ts*' --format stylish --force",
     "lint:sass": "stylelint ./src/**/*.scss",
+    "reinstall": "rimraf node_modules && yarn",
     "start": "webpack-dev-server",
     "test": "jest --watch --coverage",
     "tsc": "tsc --watch"
@@ -53,6 +54,8 @@
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.5",
     "react-hot-loader": "^3.0.0-beta.7",
+    "react-addons-test-utils": "^15.5.1",
+    "rimraf": "^2.6.1",
     "sass-loader": "^6.0.3",
     "style-loader": "^0.18.2",
     "stylelint-config-standard": "^16.0.0",
@@ -67,7 +70,6 @@
     "enome": "^2.1.1",
     "lodash": "^4.17.4",
     "react": "^15.5.4",
-    "react-addons-test-utils": "^15.5.1",
     "react-dom": "^15.5.4",
     "react-flexbox-grid": "^1.1.3"
   },
