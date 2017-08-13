@@ -75,11 +75,9 @@ export class Demo extends React.Component<Props, State> {
             progress: true,
             size: 50,
             topPercent: .75,
-            weights: {
-                keep: 0,
-                mutate: 50,
-                randomize: 100,
-                reproduce: 50,
+            updateWeights: {
+                randomize: 25,
+                reproduce: 75,
             },
         };
 
