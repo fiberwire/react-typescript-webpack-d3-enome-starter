@@ -36,6 +36,8 @@ interface State {
 
 export class Demo extends React.Component<Props, State> {
     evolution: Subscription;
+    rendering: Subscription;
+
     sim: CircleSim;
 
     constructor(props: Props) {
@@ -87,7 +89,7 @@ export class Demo extends React.Component<Props, State> {
         };
 
         const envOptions: ICircleEnvOptions = {
-            interactionRate: 1,
+            interactionRate: 1 / 1000,
             updateType: UpdateType.random,
         };
 
@@ -124,15 +126,26 @@ export class Demo extends React.Component<Props, State> {
         this.state.reset.next(false);
     }
 
-    startEvolution = () => {
+    private startEvolution(): { evolution: Subscription, rendering: Subscription } {
         if (this.evolution != null) {
             this.evolution.unsubscribe();
             this.evolution = null;
         }
 
         console.log("beginning evolution");
+        this.sim.start();
 
-        this.evolution = this.sim.start().best
+        this.rendering = this.sim
+            .environment
+            .state
+            .subscribe((state) => {
+                this.setState({
+                    data: state.state.points
+                });
+            });
+
+        this.evolution = this.sim
+            .best
             .subscribe(e => {
                 console.log(e.genotype.id);
                 this.setState({
@@ -151,6 +164,8 @@ export class Demo extends React.Component<Props, State> {
                     generation: this.state.generation + 1
                 });
             });
+
+        return { evolution: this.evolution, rendering: this.rendering };
     }
 
     stopEvolution = () => {
